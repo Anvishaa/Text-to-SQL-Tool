@@ -1,4 +1,4 @@
-# World Bank India Query Tool
+# World Bank India Query Tool using Text to SQL tool
 
 A simple tool that lets you ask questions about India's World Bank 
 development data (2014–2024) in plain English and get answers back.
