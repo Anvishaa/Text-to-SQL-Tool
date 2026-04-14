@@ -1,0 +1,102 @@
+{
+  "04a8a338c0d6a6dba3f0c69bc1bdfa5f": {
+    "question": "which year had least population",
+    "sql": "SELECT\n  year_col\nFROM (\n  SELECT '2014' AS year_col, CAST(\"2014\" AS INTEGER) AS population_value\n  FROM india_indicators\n  WHERE \"Series Name\" = 'Population, total'\n  UNION ALL\n  SELECT '2015' AS year_col, CAST(\"2015\" AS INTEGER) AS population_value\n  FROM india_indicators\n  WHERE \"Series Name\" = 'Population, total'\n  UNION ALL\n  SELECT '2016' AS year_col, CAST(\"2016\" AS INTEGER) AS population_value\n  FROM india_indicators\n  WHERE \"Series Name\" = 'Population, total'\n  UNION ALL\n  SELECT '2017' AS year_col, CAST(\"2017\" AS INTEGER) AS population_value\n  FROM india_indicators\n  WHERE \"Series Name\" = 'Population, total'\n  UNION ALL\n  SELECT '2018' AS year_col, CAST(\"2018\" AS INTEGER) AS population_value\n  FROM india_indicators\n  WHERE \"Series Name\" = 'Population, total'\n  UNION ALL\n  SELECT '2019' AS year_col, CAST(\"2019\" AS INTEGER) AS population_value\n  FROM india_indicators\n  WHERE \"Series Name\" = 'Population, total'\n  UNION ALL\n  SELECT '2020' AS year_col, CAST(\"2020\" AS INTEGER) AS population_value\n  FROM india_indicators\n  WHERE \"Series Name\" = 'Population, total'\n  UNION ALL\n  SELECT '2021' AS year_col, CAST(\"2021\" AS INTEGER) AS population_value\n  FROM india_indicators\n  WHERE \"Series Name\" = 'Population, total'\n  UNION ALL\n  SELECT '2022' AS year_col, CAST(\"2022\" AS INTEGER) AS population_value\n  FROM india_indicators\n  WHERE \"Series Name\" = 'Population, total'\n  UNION ALL\n  SELECT '2023' AS year_col, CAST(\"2023\" AS INTEGER) AS population_value\n  FROM india_indicators\n  WHERE \"Series Name\" = 'Population, total'\n  UNION ALL\n  SELECT '2024' AS year_col, CAST(\"2024\" AS INTEGER) AS population_value\n  FROM india_indicators\n  WHERE \"Series Name\" = 'Population, total'\n) AS unpivoted_data\nWHERE population_value IS NOT NULL\nORDER BY population_value ASC\nLIMIT 1;",
+    "result_columns": [
+      "year_col"
+    ],
+    "result_data": [
+      [
+        "2014"
+      ]
+    ],
+    "answer": "The year with the least population was **2014**. This information was identified directly from the provided data."
+  },
+  "a9123b78109ff2318505632ad7a26556": {
+    "question": "what is the gdp of the most populated and least populated years?",
+    "sql": "WITH PopData AS (\n    SELECT *\n    FROM india_indicators\n    WHERE \"Series Name\" = 'Population, total'\n),\nGDPData AS (\n    SELECT *\n    FROM india_indicators\n    WHERE \"Series Name\" = 'GDP (current US$)'\n),\nUnpivotedPopulation AS (\n    SELECT '2014' AS Year, CAST(PopData.\"2014\" AS REAL) AS Population FROM PopData WHERE PopData.\"2014\" IS NOT NULL\n    UNION ALL\n    SELECT '2015' AS Year, CAST(PopData.\"2015\" AS REAL) AS Population FROM PopData WHERE PopData.\"2015\" IS NOT NULL\n    UNION ALL\n    SELECT '2016' AS Year, CAST(PopData.\"2016\" AS REAL) AS Population FROM PopData WHERE PopData.\"2016\" IS NOT NULL\n    UNION ALL\n    SELECT '2017' AS Year, CAST(PopData.\"2017\" AS REAL) AS Population FROM PopData WHERE PopData.\"2017\" IS NOT NULL\n    UNION ALL\n    SELECT '2018' AS Year, CAST(PopData.\"2018\" AS REAL) AS Population FROM PopData WHERE PopData.\"2018\" IS NOT NULL\n    UNION ALL\n    SELECT '2019' AS Year, CAST(PopData.\"2019\" AS REAL) AS Population FROM PopData WHERE PopData.\"2019\" IS NOT NULL\n    UNION ALL\n    SELECT '2020' AS Year, CAST(PopData.\"2020\" AS REAL) AS Population FROM PopData WHERE PopData.\"2020\" IS NOT NULL\n    UNION ALL\n    SELECT '2021' AS Year, CAST(PopData.\"2021\" AS REAL) AS Population FROM PopData WHERE PopData.\"2021\" IS NOT NULL\n    UNION ALL\n    SELECT '2022' AS Year, CAST(PopData.\"2022\" AS REAL) AS Population FROM PopData WHERE PopData.\"2022\" IS NOT NULL\n    UNION ALL\n    SELECT '2023' AS Year, CAST(PopData.\"2023\" AS REAL) AS Population FROM PopData WHERE PopData.\"2023\" IS NOT NULL\n    UNION ALL\n    SELECT '2024' AS Year, CAST(PopData.\"2024\" AS REAL) AS Population FROM PopData WHERE PopData.\"2024\" IS NOT NULL\n),\nMostPopulatedYear AS (\n    SELECT Year\n    FROM UnpivotedPopulation\n    ORDER BY Population DESC\n    LIMIT 1\n),\nLeastPopulatedYear AS (\n    SELECT Year\n    FROM UnpivotedPopulation\n    ORDER BY Population ASC\n    LIMIT 1\n)\nSELECT\n    (SELECT\n        CASE MostPopulatedYear.Year\n            WHEN '2014' THEN GDPData.\"2014\"\n            WHEN '2015' THEN GDPData.\"2015\"\n            WHEN '2016' THEN GDPData.\"2016\"\n            WHEN '2017' THEN GDPData.\"2017\"\n            WHEN '2018' THEN GDPData.\"2018\"\n            WHEN '2019' THEN GDPData.\"2019\"\n            WHEN '2020' THEN GDPData.\"2020\"\n            WHEN '2021' THEN GDPData.\"2021\"\n            WHEN '2022' THEN GDPData.\"2022\"\n            WHEN '2023' THEN GDPData.\"2023\"\n            WHEN '2024' THEN GDPData.\"2024\"\n            ELSE NULL\n        END\n    FROM GDPData, MostPopulatedYear) AS GDP_MostPopulatedYear,\n    (SELECT\n        CASE LeastPopulatedYear.Year\n            WHEN '2014' THEN GDPData.\"2014\"\n            WHEN '2015' THEN GDPData.\"2015\"\n            WHEN '2016' THEN GDPData.\"2016\"\n            WHEN '2017' THEN GDPData.\"2017\"\n            WHEN '2018' THEN GDPData.\"2018\"\n            WHEN '2019' THEN GDPData.\"2019\"\n            WHEN '2020' THEN GDPData.\"2020\"\n            WHEN '2021' THEN GDPData.\"2021\"\n            WHEN '2022' THEN GDPData.\"2022\"\n            WHEN '2023' THEN GDPData.\"2023\"\n            WHEN '2024' THEN GDPData.\"2024\"\n            ELSE NULL\n        END\n    FROM GDPData, LeastPopulatedYear) AS GDP_LeastPopulatedYear;",
+    "result_columns": [
+      "GDP_MostPopulatedYear",
+      "GDP_LeastPopulatedYear"
+    ],
+    "result_data": [
+      [
+        "3909891533858.08",
+        "2039126479154.52"
+      ]
+    ],
+    "answer": "The GDP for the most populated year was approximately **$3.91 trillion**. In contrast, the GDP for the least populated year was significantly lower, at around **$2.04 trillion**."
+  },
+  "dd49226cb38b7b3db802e542cf3b14d5": {
+    "question": "what was the difference between gdp of most populated and least populated years",
+    "sql": "WITH PopulationData AS (\n  SELECT '2014' AS year, CAST(\"2014\" AS REAL) AS population\n  FROM india_indicators\n  WHERE \"Series Name\" = 'Population, total' AND \"2014\" IS NOT NULL\n  UNION ALL\n  SELECT '2015' AS year, CAST(\"2015\" AS REAL) AS population\n  FROM india_indicators\n  WHERE \"Series Name\" = 'Population, total' AND \"2015\" IS NOT NULL\n  UNION ALL\n  SELECT '2016' AS year, CAST(\"2016\" AS REAL) AS population\n  FROM india_indicators\n  WHERE \"Series Name\" = 'Population, total' AND \"2016\" IS NOT NULL\n  UNION ALL\n  SELECT '2017' AS year, CAST(\"2017\" AS REAL) AS population\n  FROM india_indicators\n  WHERE \"Series Name\" = 'Population, total' AND \"2017\" IS NOT NULL\n  UNION ALL\n  SELECT '2018' AS year, CAST(\"2018\" AS REAL) AS population\n  FROM india_indicators\n  WHERE \"Series Name\" = 'Population, total' AND \"2018\" IS NOT NULL\n  UNION ALL\n  SELECT '2019' AS year, CAST(\"2019\" AS REAL) AS population\n  FROM india_indicators\n  WHERE \"Series Name\" = 'Population, total' AND \"2019\" IS NOT NULL\n  UNION ALL\n  SELECT '2020' AS year, CAST(\"2020\" AS REAL) AS population\n  FROM india_indicators\n  WHERE \"Series Name\" = 'Population, total' AND \"2020\" IS NOT NULL\n  UNION ALL\n  SELECT '2021' AS year, CAST(\"2021\" AS REAL) AS population\n  FROM india_indicators\n  WHERE \"Series Name\" = 'Population, total' AND \"2021\" IS NOT NULL\n  UNION ALL\n  SELECT '2022' AS year, CAST(\"2022\" AS REAL) AS population\n  FROM india_indicators\n  WHERE \"Series Name\" = 'Population, total' AND \"2022\" IS NOT NULL\n  UNION ALL\n  SELECT '2023' AS year, CAST(\"2023\" AS REAL) AS population\n  FROM india_indicators\n  WHERE \"Series Name\" = 'Population, total' AND \"2023\" IS NOT NULL\n  UNION ALL\n  SELECT '2024' AS year, CAST(\"2024\" AS REAL) AS population\n  FROM india_indicators\n  WHERE \"Series Name\" = 'Population, total' AND \"2024\" IS NOT NULL\n),\nGDPData AS (\n  SELECT '2014' AS year, CAST(\"2014\" AS REAL) AS gdp\n  FROM india_indicators\n  WHERE \"Series Name\" = 'GDP (current US$)' AND \"2014\" IS NOT NULL\n  UNION ALL\n  SELECT '2015' AS year, CAST(\"2015\" AS REAL) AS gdp\n  FROM india_indicators\n  WHERE \"Series Name\" = 'GDP (current US$)' AND \"2015\" IS NOT NULL\n  UNION ALL\n  SELECT '2016' AS year, CAST(\"2016\" AS REAL) AS gdp\n  FROM india_indicators\n  WHERE \"Series Name\" = 'GDP (current US$)' AND \"2016\" IS NOT NULL\n  UNION ALL\n  SELECT '2017' AS year, CAST(\"2017\" AS REAL) AS gdp\n  FROM india_indicators\n  WHERE \"Series Name\" = 'GDP (current US$)' AND \"2017\" IS NOT NULL\n  UNION ALL\n  SELECT '2018' AS year, CAST(\"2018\" AS REAL) AS gdp\n  FROM india_indicators\n  WHERE \"Series Name\" = 'GDP (current US$)' AND \"2018\" IS NOT NULL\n  UNION ALL\n  SELECT '2019' AS year, CAST(\"2019\" AS REAL) AS gdp\n  FROM india_indicators\n  WHERE \"Series Name\" = 'GDP (current US$)' AND \"2019\" IS NOT NULL\n  UNION ALL\n  SELECT '2020' AS year, CAST(\"2020\" AS REAL) AS gdp\n  FROM india_indicators\n  WHERE \"Series Name\" = 'GDP (current US$)' AND \"2020\" IS NOT NULL\n  UNION ALL\n  SELECT '2021' AS year, CAST(\"2021\" AS REAL) AS gdp\n  FROM india_indicators\n  WHERE \"Series Name\" = 'GDP (current US$)' AND \"2021\" IS NOT NULL\n  UNION ALL\n  SELECT '2022' AS year, CAST(\"2022\" AS REAL) AS gdp\n  FROM india_indicators\n  WHERE \"Series Name\" = 'GDP (current US$)' AND \"2022\" IS NOT NULL\n  UNION ALL\n  SELECT '2023' AS year, CAST(\"2023\" AS REAL) AS gdp\n  FROM india_indicators\n  WHERE \"Series Name\" = 'GDP (current US$)' AND \"2023\" IS NOT NULL\n  UNION ALL\n  SELECT '2024' AS year, CAST(\"2024\" AS REAL) AS gdp\n  FROM india_indicators\n  WHERE \"Series Name\" = 'GDP (current US$)' AND \"2024\" IS NOT NULL\n),\nCombinedData AS (\n  SELECT\n    P.year,\n    P.population,\n    G.gdp\n  FROM PopulationData AS P\n  JOIN GDPData AS G\n    ON P.year = G.year\n)\nSELECT\n  (SELECT gdp FROM CombinedData ORDER BY population DESC LIMIT 1) -\n  (SELECT gdp FROM CombinedData ORDER BY population ASC LIMIT 1);",
+    "result_columns": [
+      "(SELECT gdp FROM CombinedData ORDER BY population DESC LIMIT 1) -\n  (SELECT gdp FROM CombinedData ORDER BY population ASC LIMIT 1)"
+    ],
+    "result_data": [
+      [
+        1870765054703.56
+      ]
+    ],
+    "answer": "The difference in GDP between the most populated year and the least populated year in the dataset was approximately $1.87 trillion. Specifically, the GDP for the year with the highest population was $1.87 trillion higher than the GDP for the year with the lowest population."
+  },
+  "db497a1a0af7c9f1f4ccca2b22317bcd": {
+    "question": "what was population growth in 2022",
+    "sql": "SELECT \"2022\" FROM india_indicators WHERE \"Series Name\" = 'Population growth (annual %)';",
+    "result_columns": [
+      "2022"
+    ],
+    "result_data": [
+      [
+        "0.790200540609834"
+      ]
+    ],
+    "answer": "In 2022, the population growth was approximately 0.79%. This indicates a modest increase in the overall population during that year."
+  },
+  "3c5aaab99246d728d376aad310af786e": {
+    "question": "mortality rate in year 2016",
+    "sql": "SELECT \"2016\" FROM india_indicators WHERE \"Series Name\" LIKE '%mortality rate%'",
+    "result_columns": [
+      "2016"
+    ],
+    "result_data": [
+      [
+        "41.1"
+      ]
+    ],
+    "answer": "The mortality rate in 2016 was 41.1. This figure represents the reported mortality rate for that specific year."
+  },
+  "fcf3f5681c30139a3ee4e8f14f80cfd2": {
+    "question": "what is the life expectancy trend ",
+    "sql": "SELECT\n  \"2014\",\n  \"2015\",\n  \"2016\",\n  \"2017\",\n  \"2018\",\n  \"2019\",\n  \"2020\",\n  \"2021\",\n  \"2022\",\n  \"2023\",\n  \"2024\"\nFROM india_indicators\nWHERE\n  \"Series Name\" = 'Life expectancy at birth, total (years)';",
+    "result_columns": [
+      "2014",
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ],
+    "result_data": [
+      [
+        "68.932",
+        "69.326",
+        "69.709",
+        "70.068",
+        "70.415",
+        "70.746",
+        "70.156",
+        "67.282",
+        "71.698",
+        "72.003",
+        null
+      ]
+    ],
+    "answer": "Life expectancy generally trended upwards from 68.9 years in 2014 to 70.7 years in 2019. There was a significant decline, reaching a low of 67.3 years in 2021, but it has since recovered, reaching 72.0 years by 2023."
+  }
+}

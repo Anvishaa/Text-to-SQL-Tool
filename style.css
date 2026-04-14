@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap');
+
+html, body, [class*="css"] {
+    font-family: 'Syne', sans-serif;
+    background-color: #0a0a0f;
+    color: #e8e6e0;
+}
+
+#MainMenu, footer, header {visibility: hidden;}
+.block-container {padding-top: 2rem; padding-bottom: 2rem;}
+
+.stApp {
+    background: #0a0a0f;
+    background-image: radial-gradient(ellipse at 20% 20%, #1a1a2e 0%, transparent 50%),
+                      radial-gradient(ellipse at 80% 80%, #0d1117 0%, transparent 50%);
+}
+
+.main-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #f5f0e8 0%, #c8b89a 50%, #f5f0e8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.2rem;
+    line-height: 1.1;
+}
+
+.subtitle {
+    color: #666;
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+    font-weight: 400;
+}
+
+.stTextInput > div > div > input {
+    background: #111118 !important;
+    border: 1px solid #2a2a3a !important;
+    border-radius: 8px !important;
+    color: #e8e6e0 !important;
+    font-family: 'DM Mono', monospace !important;
+    font-size: 0.95rem !important;
+    padding: 0.75rem 1rem !important;
+    transition: border-color 0.2s ease;
+}
+.stTextInput > div > div > input:focus {
+    border-color: #c8b89a !important;
+    box-shadow: 0 0 0 1px #c8b89a33 !important;
+}
+.stTextInput > div > div > input::placeholder {
+    color: #444 !important;
+}
+
+.stButton > button {
+    background: linear-gradient(135deg, #c8b89a, #a89070) !important;
+    color: #0a0a0f !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-family: 'Syne', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 0.9rem !important;
+    letter-spacing: 0.05em !important;
+    padding: 0.6rem 2rem !important;
+    transition: all 0.2s ease !important;
+}
+.stButton > button:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 20px #c8b89a44 !important;
+}
+
+.answer-card {
+    background: #111118;
+    border: 1px solid #2a2a3a;
+    border-left: 3px solid #c8b89a;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #e8e6e0;
+}
+
+.cache-hit {
+    display: inline-block;
+    background: #1a2a1a;
+    border: 1px solid #2a4a2a;
+    color: #6abf6a;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 1rem;
+}
+
+.cache-miss {
+    display: inline-block;
+    background: #1a1a2a;
+    border: 1px solid #2a2a4a;
+    color: #6a8abf;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 1rem;
+}
+
+.section-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+.stDataFrame {
+    border: 1px solid #2a2a3a !important;
+    border-radius: 8px !important;
+}
+
+/* Sidebar */
+[data-testid="stSidebar"] {
+    background: #0d0d14 !important;
+    border-right: 1px solid #2a2a3a !important;
+}
+
+[data-testid="stSidebar"] * {
+    color: #cccccc !important;
+}
+
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3 {
+    color: #e8e6e0 !important;
+}
+
+[data-testid="stSidebar"] {
+    min-width: 250px !important;
+    max-width: 350px !important;
+    width: 280px !important;
+    transform: translateX(0) !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+[data-testid="stSidebarContent"] {
+    padding: 2rem 1rem !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+section[data-testid="stSidebar"] > div {
+    width: 280px !important;
+    min-width: 280px !important;
+}
+.streamlit-expanderHeader {
+    background: #111118 !important;
+    border: 1px solid #2a2a3a !important;
+    border-radius: 8px !important;
+    color: #888 !important;
+    font-family: 'DM Mono', monospace !important;
+    font-size: 0.85rem !important;
+}
+
+hr {
+    border-color: #1a1a2a !important;
+    margin: 1.5rem 0 !important;
+}
+
+.stDownloadButton > button {
+    background: transparent !important;
+    border: 1px solid #2a2a3a !important;
+    color: #888 !important;
+    font-family: 'DM Mono', monospace !important;
+    font-size: 0.8rem !important;
+    border-radius: 6px !important;
+}
+.stDownloadButton > button:hover {
+    border-color: #c8b89a !important;
+    color: #c8b89a !important;
+}
+
+.stSpinner > div {
+    border-top-color: #c8b89a !important;
+}
